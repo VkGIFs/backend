@@ -2,7 +2,6 @@
 # disabled E0213 because Method 'assemble_postgres_db_url' should have "self" as first argument (no-self-argument)
 # but if replace `cls` with `self` raise PydanticUserError
 # pydantic.errors.PydanticUserError: `@field_validator` cannot be applied to instance methods
-
 from functools import lru_cache
 from typing import Any
 
@@ -13,6 +12,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     """Settings for database connection"""
 
+    APP_NAME: str = "vkgifs"
+    APP_MODE: str
+
+    PATH_PREFIX: str = "/api"
+
     POSTGRES_HOST: str
     POSTGRES_PORT: int
     POSTGRES_DB: str
@@ -22,6 +26,9 @@ class Settings(BaseSettings):
     POSTGRES_POOL_TIMEOUT: int = 30
     DATABASE_URL: str | None = None
 
+    SENTRY_DSN: str | None = None
+    SYNC_TOKEN: SecretStr
+
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=False, extra="ignore", env_prefix="BACKEND_")
 
     @field_validator("DATABASE_URL", mode="before")  # type: ignore
@@ -30,7 +37,7 @@ class Settings(BaseSettings):
         if v and isinstance(v, str):
             return v
         return (
-            f"postgresql+psycopg2://"
+            f"postgresql+asyncpg://"
             f"{values.data['POSTGRES_USER']}:{values.data['POSTGRES_PASSWORD'].get_secret_value()}@"
             f"{values.data['POSTGRES_HOST']}:{values.data['POSTGRES_PORT']}/"
             f"{values.data['POSTGRES_DB']}"

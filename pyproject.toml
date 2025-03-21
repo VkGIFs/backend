@@ -7,10 +7,21 @@ authors = [
 ]
 license = {text = "GPLv3"}
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12,<4.0"
 dependencies = [
-    "pydantic (>=2.10.6,<3.0.0)",
-    "pydantic-settings (>=2.7.1,<3.0.0)"
+    "pydantic (==2.10.6)",
+    "pydantic-settings (==2.7.1)",
+    "sqlalchemy (==2.0.38)",
+    "fastapi (==0.115.8)",
+    "uvicorn (==0.34.0)",
+    "punq (==0.7.0)",
+    "asyncpg (>=0.30.0,<0.31.0)",
+    "fastapi-jwt (==0.3.0)",
+    "pyjwt (==2.10.1)",
+    "authlib (==1.4.1)",
+    "sentry-sdk[fastapi] (>=2.24.0,<3.0.0)",
+    "greenlet (>=3.1.1,<4.0.0)",
+    "loguru (>=0.7.3,<0.8.0)"
 ]
 
 
@@ -19,14 +30,103 @@ requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.group.code-quality.dependencies]
-flake8 = "^7.1.1"
-isort = "^6.0.0"
+flake8 = "^7.1.2"
+isort = "^6.0.1"
 black = "^25.1.0"
 mypy = "^1.15.0"
-pylint = "^3.3.4"
+pylint = "^3.3.6"
 flake8-pyproject = "^1.2.3"
 
 
-[tool.poetry.group.testing.dependencies]
-pytest = "^8.3.4"
+[tool.poetry.group.testings.dependencies]
+pytest = "^8.3.5"
 
+[tool.flake8]
+ignore = "W503"
+max-line-length = 120
+per-file-ignores = [
+    "__init__.py:F401",
+]
+exclude = [
+    "local/",
+    "logs/",
+    "cache/*",
+    "!cache/.gitkeep",
+    "db.sqlite3",
+    "__pycache__/",
+    "*.py[cod]",
+    "*$py.class",
+    ".pytest_cache/",
+    ".Python",
+    "env/",
+    ".env/",
+    "build/",
+    "develop-eggs/",
+    "dist/",
+    "downloads/",
+    "eggs/",
+    ".eggs/",
+    "lib/",
+    "lib64/",
+    "parts/",
+    "sdist/",
+    "var/",
+    "wheels/",
+    "*.egg-info/",
+    ".installed.cfg",
+    "*.egg",
+    ".env",
+    ".autoenv*.zsh",
+    ".venv*",
+    "venv*",
+    "ENV/",
+    ".idea/",
+    "*.iml",
+    ".vscode/",
+    ".DS_Store",
+    "*.entry.js",
+    "node_modules",
+    "stats.json",
+    "npm-debug.log*",
+    "derby.log",
+    "metastore_db"
+]
+
+[tool.mypy]
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = false
+pretty = true
+show_error_codes = true
+
+[tool.isort]
+profile = "black"
+lines_after_imports = 2
+
+[tool.black]
+line-length = 120
+
+[tool.pytest.ini_options]
+testpaths = ["src/tests"]
+addopts = "--asyncio-mode=strict -vv -p no:cacheprovider --disable-pytest-warnings -o log_cli=true"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.pylint]
+max-line-length = 120
+
+[tool.pylint.messages_control]
+disable = [
+    "protected-access",  # Allow protected access in tests
+    "missing-module-docstring",  # Optional for test files
+    "redefined-outer-name",  # Allow fixture usage in tests
+    "raw-checker-failed",
+    "bad-inline-option",
+    "locally-disabled",
+    "file-ignored",
+    "suppressed-message",
+    "useless-suppression",
+    "deprecated-pragma",
+    "use-symbolic-message-instead",
+    "broad-exception-caught"
+]
