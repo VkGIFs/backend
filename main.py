@@ -8,10 +8,10 @@ from sentry_sdk.integrations.fastapi import FastApiIntegration
 from sentry_sdk.integrations.starlette import StarletteIntegration
 from starlette.responses import JSONResponse
 
-from src.db import setup_db_connection
-from src.exceptions import ApiException, InternalServerError
-from src.settings import get_settings
-from src.utils import bind_routes
+from backend.db import setup_db_connection
+from backend.exceptions import ApiException, InternalServerError
+from backend.settings import get_settings
+from backend.utils import bind_routes
 
 
 settings = get_settings()

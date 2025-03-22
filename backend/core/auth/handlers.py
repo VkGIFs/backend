@@ -4,7 +4,7 @@
 from fastapi import Depends, HTTPException, Security
 from fastapi.security import HTTPBearer
 
-from src.settings import Settings, get_settings
+from backend.settings import Settings, get_settings
 
 
 sync_token = HTTPBearer()

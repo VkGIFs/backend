@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Body, Depends
 
-from src.core.auth.handlers import verify_sync_token
-from src.db.connection.transaction import Transaction
-from src.exceptions import UserAlreadyRegisteredError
-from src.models.user import UserModel
-from src.schemas.user import UserCreateView
+from backend.core.auth.handlers import verify_sync_token
+from backend.db.connection.transaction import Transaction
+from backend.exceptions import UserAlreadyRegisteredError
+from backend.models.user import UserModel
+from backend.schemas.user import UserCreateView
 
 
 router = APIRouter(dependencies=[Depends(verify_sync_token)])

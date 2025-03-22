@@ -1,5 +1,5 @@
 [project]
-name = "vkgifsbackend"
+name = "backend"
 version = "0.1.0"
 description = "This is a backend of vkgifsbot idea"
 authors = [

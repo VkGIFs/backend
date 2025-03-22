@@ -3,7 +3,7 @@ from contextvars import Token
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import sessionmaker
 
-from src.db.connection.context_vars import container, db_session
+from backend.db.connection.context_vars import container, db_session
 
 
 class Transaction:

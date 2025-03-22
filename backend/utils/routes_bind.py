@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from src.routes import list_of_routes
-from src.settings import Settings
+from backend.routes import list_of_routes
+from backend.settings import Settings
 
 
 def bind_routes(application: FastAPI, settings: Settings) -> None:

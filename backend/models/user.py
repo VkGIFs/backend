@@ -2,9 +2,9 @@ from pydantic import TypeAdapter
 from sqlalchemy import Column, insert, select
 from sqlalchemy.dialects.postgresql import VARCHAR
 
-from src.db.connection.context_vars import db_session
-from src.models import BaseDatetimeModel
-from src.schemas.user import UserView
+from backend.db.connection.context_vars import db_session
+from backend.models import BaseDatetimeModel
+from backend.schemas.user import UserView
 
 
 class UserModel(BaseDatetimeModel):

@@ -2,8 +2,8 @@ from punq import Container  # type: ignore
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from src.db.connection.context_vars import container, engine, session_maker
-from src.settings import Settings
+from backend.db.connection.context_vars import container, engine, session_maker
+from backend.settings import Settings
 
 
 def setup_db_connection(settings: Settings):
